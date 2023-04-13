@@ -184,7 +184,12 @@ def get_telco_data(SQL_query, directory, url, filename = "telco_churn.csv"):
 # df.describe
 
 # # print the unique values for each of your categorical variables
-# df.columns.unique()
+# print(df.Embarked.value_counts())
+# print(df.Sex.value_counts())
+# print(df.Cabin.value_counts())
+# print(df.Ticket.value_counts())
+
+
 
 
 
