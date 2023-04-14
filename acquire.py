@@ -28,7 +28,7 @@ def new_titanic_data(SQL_query, url):
     
     
     
-def get_titanic_data(SQL_query, directory, url, filename = "titanic.csv"):
+def get_titanic_data(filename = "titanic.csv"):
     '''
     this function will:
     -check local directory for csv file
@@ -40,6 +40,12 @@ def get_titanic_data(SQL_query, directory, url, filename = "titanic.csv"):
     output titanic df
     
     '''
+
+    SQL_query = '''select * from passengers'''
+    filename = "titanic.csv"
+    directory = '/Users/divante/codeup-data-science/classification_exercises/'
+    url= f'mysql+pymysql://{env.username}:{env.password}@{env.hostname}/titanic_db'
+
     if os.path.exists(directory + filename):
         df = pd.read_csv(filename)
         return df
@@ -69,12 +75,14 @@ def new_iris_data(SQL_query, url):
     -return a df of the given query from the iris_db
     
     '''
+    
     url= f'mysql+pymysql://{env.username}:{env.password}@{env.hostname}/iris_db'
     return pd.read_sql(SQL_query,url)    
         
 
     
-def get_iris_data(SQL_query, directory, url, filename = "iris.csv"):
+def get_iris_data(filename = "iris.csv"):
+
     '''
     this function will:
     -check local directory for csv file
@@ -86,6 +94,13 @@ def get_iris_data(SQL_query, directory, url, filename = "iris.csv"):
     output iris_db df
     
     '''
+    SQL_query = '''select * from measurements
+    join species using(species_id);
+    ;'''    
+    url= f'mysql+pymysql://{env.username}:{env.password}@{env.hostname}/iris_db'
+    filename = "iris_db.csv"
+
+    directory = '/Users/divante/codeup-data-science/classification_exercises/'
     if os.path.exists(directory + filename):
         df = pd.read_csv(filename)
         return df
@@ -117,7 +132,7 @@ def new_telco_data(SQL_query, url):
         
 
     
-def get_telco_data(SQL_query, directory, url, filename = "telco_churn.csv"):
+def get_telco_data(filename = "telco_churn.csv"):
     '''
     this function will:
     -check local directory for csv file
@@ -129,6 +144,17 @@ def get_telco_data(SQL_query, directory, url, filename = "telco_churn.csv"):
     output telco_churn df
     
     '''
+    SQL_query = '''
+    select *
+    from customers
+    join contract_types using(contract_type_id)
+    join internet_service_types using(internet_service_type_id)
+    join payment_types using(payment_type_id)
+    ;
+    '''    
+    directory = '/Users/divante/codeup-data-science/classification_exercises/'
+    filename = 'telco_churn.csv'
+    url= f'mysql+pymysql://{env.username}:{env.password}@{env.hostname}/telco_churn'
     if os.path.exists(directory + filename):
         df = pd.read_csv(filename)
         return df
