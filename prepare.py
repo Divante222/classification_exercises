@@ -38,13 +38,15 @@ def prep_telco(data):
 
     the_columns = the_columns.drop(['customer_id', 'total_charges'])
     dummy = pd.get_dummies(data, columns = the_columns, drop_first=True)
-    return dummy 
+    data = pd.concat([data, dummy], axis=1)
+    return data 
+
 
 
 
 def prep_titanic(raw_titanic_df):
     titanic = acquire.get_titanic_data() 
-    titanic = titanic.drop(columns=['passenger_id','class','embarked','deck'])
+    titanic = titanic.drop(columns=['Unnamed: 0','passenger_id','class','embarked','deck'])
     dummy = pd.get_dummies(titanic[['sex', 'embark_town']], drop_first=True)
     titanic = pd.concat([titanic, dummy], axis=1)
     titanic = titanic.drop(columns=['sex', 'embark_town'])
