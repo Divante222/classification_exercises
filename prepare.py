@@ -34,6 +34,7 @@ def split_data(df, target):
 def prep_telco(data):
     data = data.drop(columns = ['payment_type_id', 'internet_service_type_id',
                      'contract_type_id','Unnamed: 0'])
+    
     the_columns = data.select_dtypes('object').columns
 
     the_columns = the_columns.drop(['customer_id', 'total_charges'])
